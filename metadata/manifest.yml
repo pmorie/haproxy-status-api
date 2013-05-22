@@ -1,0 +1,36 @@
+Name: haproxy-status-api
+Cartridge-Short-Name: HAPROXYSTATUSAPI
+Display-Name: HAProxy Status API
+Description: "A simple OpenShift plugin cartridge that implements a simple RESTish API for haproxy load"
+Version: '0.1'
+License: "ASL 2.0"
+License-Url: http://www.apache.org/licenses/LICENSE-2.0.txt
+Source-Url: https://github.com/danmcp/haproxy-status-api.git
+Cartridge-Version: 0.0.1
+Cartridge-Vendor: openshift
+Categories:
+  - embedded
+  - plugin
+  - service
+Cart-Data:
+Publishes:
+Subscribes:
+Scaling:
+  Min: 1
+  Max: 1
+Provides:
+  - haproxy-status-api-0.1
+  - "haproxy-status-api"
+Group-Overrides:
+  - components:
+    - haproxy-status-api-0.1
+    - web_proxy
+Endpoints:
+  - Private-IP-Name:   IP
+    Private-Port-Name: PORT
+    Private-Port:      8080
+    Public-Port-Name:  PROXY_PORT
+    Mappings:
+      - Frontend:      "/haproxystatus"
+        Backend:       ""
+Install-Build-Required: false

@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+source "${OPENSHIFT_HAPROXYSTATUSAPI_DIR}/lib/util"
+
+mkdir $OPENSHIFT_HAPROXYSTATUSAPI_DIR/tmp
+
+# Create additional directories required by OPENSHIFT_HAPROXYSTATUSAPI_DIR and httpd
+ln -s /usr/lib64/httpd/modules $OPENSHIFT_HAPROXYSTATUSAPI_DIR
+ln -s /etc/httpd/conf/magic $OPENSHIFT_HAPROXYSTATUSAPI_DIR/etc/magic
+
+client_result "URL: https://$OPENSHIFT_GEAR_DNS/haproxystatus/"
+

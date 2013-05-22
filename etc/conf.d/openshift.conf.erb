@@ -1,0 +1,26 @@
+LoadModule passenger_module modules/mod_passenger.so
+<IfModule mod_passenger.c>
+   PassengerRoot /usr/lib/ruby/gems/1.8/gems/passenger-3.0.2
+   PassengerRuby /usr/bin/ruby
+   PassengerSpawnMethod conservative
+</IfModule>
+
+
+ServerRoot "<%= ENV['OPENSHIFT_HAPROXYSTATUSAPI_DIR'] %>"
+DocumentRoot "<%= ENV['OPENSHIFT_HAPROXYSTATUSAPI_DIR'] %>/app/public"
+Listen <%= ENV['OPENSHIFT_HAPROXYSTATUSAPI_IP'] %>:<%= ENV['OPENSHIFT_HAPROXYSTATUSAPI_PORT'] %>
+User <%= ENV['OPENSHIFT_GEAR_UUID'] %>
+Group <%= ENV['OPENSHIFT_GEAR_UUID'] %>
+
+ErrorLog "|/usr/sbin/rotatelogs <%= ENV['OPENSHIFT_HAPROXYSTATUSAPI_DIR'] %>/logs/error_log-%Y%m%d-%H%M%S-%Z 86400"
+CustomLog "|/usr/sbin/rotatelogs <%= ENV['OPENSHIFT_HAPROXYSTATUSAPI_DIR'] %>/logs/access_log-%Y%m%d-%H%M%S-%Z 86400" combined
+
+PassengerUser <%= ENV['OPENSHIFT_GEAR_UUID'] %>
+PassengerPreStart http://<%= ENV['OPENSHIFT_HAPROXYSTATUSAPI_IP'] %>:<%= ENV['OPENSHIFT_HAPROXYSTATUSAPI_PORT'] %>/
+PassengerSpawnIPAddress <%= ENV['OPENSHIFT_HAPROXYSTATUSAPI_IP'] %>
+PassengerUseGlobalQueue off
+<Directory <%= ENV['OPENSHIFT_HAPROXYSTATUSAPI_DIR'] %>/app/public>
+    AllowOverride All
+    Options -Multiviews
+</Directory>
+

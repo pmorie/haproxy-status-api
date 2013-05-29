@@ -46,7 +46,7 @@ map '/' do
 
       stats['express'].each do |name, attrs|
         if name != 'FRONTEND' && name != 'BACKEND' && name != 'filler'
-          output[name] = { 'load_pct' => (attrs.scur.to_i / 10.0 ) * 100, 'node' => "node#{node_num}", 'current_sessions' => attrs.scur.to_i }
+          output[name] = { 'load_pct' => (attrs.scur.to_i / 40.0 ) * 100, 'node' => "node#{node_num}", 'current_sessions' => attrs.scur.to_i }
           node_num += 1
         end
       end

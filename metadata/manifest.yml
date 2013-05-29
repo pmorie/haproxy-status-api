@@ -23,7 +23,7 @@ Provides:
   - "haproxy-status-api"
 Group-Overrides:
   - components:
-    - haproxy-status-api-0.1
+    - openshift-haproxy-status-api-0.1
     - web_proxy
 Endpoints:
   - Private-IP-Name:   IP
